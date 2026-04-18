@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Import routers
-from app.api import auth, rag, chat, quiz, flashcard, diagnostic
+from app.api import auth, rag, chat, quiz, flashcard, diagnostic, mathsolver
 from app.services.db_init import init_all_tables
 
 # Configure logging
@@ -78,6 +78,7 @@ app.include_router(chat.router)
 app.include_router(quiz.router)
 app.include_router(flashcard.router)
 app.include_router(diagnostic.router)
+app.include_router(mathsolver.router)
 
 # Serve static frontend files
 frontend_path = os.path.join(os.path.dirname(__file__), "../../frontend")

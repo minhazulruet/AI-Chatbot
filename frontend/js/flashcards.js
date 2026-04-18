@@ -71,6 +71,7 @@ async function generateFlashcards() {
         hideLoadingScreen();
         const errorMsg = getErrorMessage(error);
         showWarning(errorMsg);
+    } finally {
         btn.disabled = false;
     }
 }
@@ -189,10 +190,11 @@ function showFormScreen() {
 }
 
 function showLoadingScreen() {
-    document.getElementById('formScreen').classList.remove('active');
+    document.getElementById('formScreen').classList.add('active');
     document.getElementById('loadingScreen').classList.add('active');
     document.getElementById('flashcardScreen').classList.remove('active');
     document.getElementById('summaryScreen').classList.remove('active');
+    document.getElementById('loadingScreen').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function hideLoadingScreen() {
@@ -200,18 +202,20 @@ function hideLoadingScreen() {
 }
 
 function showFlashcardScreen() {
-    document.getElementById('formScreen').classList.remove('active');
+    document.getElementById('formScreen').classList.add('active');
     document.getElementById('loadingScreen').classList.remove('active');
     document.getElementById('flashcardScreen').classList.add('active');
     document.getElementById('summaryScreen').classList.remove('active');
+    document.getElementById('flashcardScreen').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function showSummaryScreen() {
     displayAllCards();
-    document.getElementById('formScreen').classList.remove('active');
+    document.getElementById('formScreen').classList.add('active');
     document.getElementById('loadingScreen').classList.remove('active');
     document.getElementById('flashcardScreen').classList.remove('active');
     document.getElementById('summaryScreen').classList.add('active');
+    document.getElementById('summaryScreen').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 /**

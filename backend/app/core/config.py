@@ -1,6 +1,7 @@
 """
 Configuration Management
 """
+import os
 from pydantic_settings import BaseSettings
 from typing import List
 
@@ -15,7 +16,7 @@ class Settings(BaseSettings):
     
     # Server
     host: str = "0.0.0.0"
-    port: int = 10000  # Render standard port
+    port: int = int(os.getenv("PORT", 10000))  # Read from env or default to 10000
     
     # API Keys
     openai_api_key: str = ""

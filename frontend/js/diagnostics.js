@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('diagnosticForm');
     if (form) {
         form.addEventListener('submit', handleDiagnosticSubmit);
+        form.addEventListener('reset', resetDiagnosticResults);
     }
     
     // Setup character counter
@@ -73,6 +74,7 @@ async function handleDiagnosticSubmit(e) {
     // Disable submit button and show loading
     submitBtn.disabled = true;
     submitBtn.textContent = '🔄 Analyzing...';
+    showDiagnosticsLoader();
     
     try {
         // Call diagnostic API
@@ -114,7 +116,7 @@ async function handleDiagnosticSubmit(e) {
  * Display diagnostic results
  */
 function displayDiagnosticResults(result) {
-    const resultsSection = document.getElementById('resultsSection');
+    const resultsContent = document.getElementById('diagnosticsResultContent');
     
     let html = '';
     
@@ -145,7 +147,7 @@ function displayDiagnosticResults(result) {
                 <strong>ℹ️ Note:</strong> ${result.canned_response}
             </div>
         `;
-        resultsSection.innerHTML = html;
+        resultsContent.innerHTML = html;
         return;
     }
     
@@ -300,7 +302,7 @@ function displayDiagnosticResults(result) {
         </div>
     `;
     
-    resultsSection.innerHTML = html;
+    resultsContent.innerHTML = html;
 }
 
 /**
@@ -339,12 +341,35 @@ function capitalize(str) {
  * Display error message
  */
 function displayError(message) {
-    const resultsSection = document.getElementById('resultsSection');
-    resultsSection.innerHTML = `
+    const resultsContent = document.getElementById('diagnosticsResultContent');
+    resultsContent.innerHTML = `
         <div class="error-message">
             <strong>❌ Error:</strong> ${message}
         </div>
     `;
+}
+
+function showDiagnosticsLoader() {
+    const resultsContent = document.getElementById('diagnosticsResultContent');
+    resultsContent.innerHTML = `
+        <div class="loading-indicator diagnostics-loader">
+            <div class="spinner"></div>
+            <p>Analyzing your learning concern...</p>
+            <small>This may take a few seconds.</small>
+        </div>
+    `;
+    resultsContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetDiagnosticResults() {
+    const resultsContent = document.getElementById('diagnosticsResultContent');
+    if (!resultsContent) return;
+    resultsContent.innerHTML = `
+        <p class="results-placeholder">
+            Submit your learning concern to see personalized recommendations below.
+        </p>
+    `;
+    updateCharCount();
 }
 
 /**
