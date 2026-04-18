@@ -49,12 +49,13 @@ wheels/
 *.sqlite
 *.sqlite3
 
-# Data and Models
+# Data and Models (only ignore data, not source code)
+data/models/
 data/processed/*.pkl
 data/processed/*.faiss
 *.pkl
 *.h5
-models/
+saved_models/
 
 # Logs
 logs/
