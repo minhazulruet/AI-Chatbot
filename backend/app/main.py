@@ -91,7 +91,7 @@ if __name__ == "__main__":
     
     # Read configuration from environment variables
     host = os.getenv("HOST", "0.0.0.0")
-    port = int(os.getenv("PORT", 8000))
+    port = int(os.getenv("PORT", 10000))
     debug = os.getenv("DEBUG", "True").lower() == "true"
     
     logger.info(f"Starting server on {host}:{port}")
