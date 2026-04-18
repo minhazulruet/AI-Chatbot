@@ -26,8 +26,13 @@ async def lifespan(app: FastAPI):
     """Manage application lifecycle"""
     logger.info("🚀 Application startup")
     
-    # Initialize database tables
-    await init_all_tables()
+    # Initialize database tables with error handling
+    try:
+        await init_all_tables()
+        logger.info("✓ Database tables initialized successfully")
+    except Exception as e:
+        logger.warning(f"⚠️  Database initialization skipped: {str(e)}")
+        logger.info("App will continue without database initialization")
     
     yield
     logger.info("🛑 Application shutdown")
