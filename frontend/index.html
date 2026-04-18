@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot - Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .user-info {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .user-welcome {
+            color: white;
+        }
+
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+
+        .welcome-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .welcome-section h1 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-section p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .user-details {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            text-align: left;
+        }
+
+        .user-details p {
+            margin: 0.5rem 0;
+            color: #333;
+        }
+
+        .user-details strong {
+            color: var(--primary-color);
+        }
+
+        /* Inline Chat Widget Styles */
+        .chat-widget {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+            padding: 1.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .chat-widget h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chat-widget-messages {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #f9f9f9;
+        }
+
+        .chat-widget-message {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 4px;
+            line-height: 1.5;
+        }
+
+        .chat-widget-message.user {
+            background: #e3f2fd;
+            text-align: right;
+            color: #333;
+        }
+
+        .chat-widget-message.assistant {
+            background: #f5f5f5;
+            color: #333;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .chat-widget-message.loading {
+            background: #f0f0f0;
+            color: #999;
+            font-style: italic;
+        }
+
+        .chat-widget-input-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-widget-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .chat-widget-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+        }
+
+        .chat-widget-send {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .chat-widget-send:hover {
+            background: #5568d3;
+        }
+
+        .chat-widget-send:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    </style>
+    <!-- MathJax for LaTeX rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]'], ['[', ']']]  // Add square brackets for display math
+        },
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">AI Chatbot</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="chat.html">Chat</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="flashcards.html">Flashcards</a></li>
+            <li><a href="diagnostics.html">Diagnostics</a></li>
+        </ul>
+        <div class="user-info">
+            <span class="user-welcome" id="userWelcome"></span>
+            <button class="logout-btn" onclick="handleLogout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="welcome-section">
+            <h1>Welcome to AI Chatbot! 🎓</h1>
+            <p>Your intelligent learning companion</p>
+            <div class="user-details" id="userDetails"></div>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <h3>💬 Chat</h3>
+                <p>Have conversations with our AI assistant</p>
+                <a href="chat.html" class="btn">Start Chat</a>
+            </div>
+            
+            <div class="feature-card">
+                <h3>📝 Quiz</h3>
+                <p>Test your knowledge with interactive quizzes</p>
+                <a href="quiz.html" class="btn">Take Quiz</a>
+            </div>
+            
+            <div class="feature-card">
+                <h3>📇 Flashcards</h3>
+                <p>Learn with spaced repetition flashcards</p>
+                <a href="flashcards.html" class="btn">Study Flashcards</a>
+            </div>
+            
+            <div class="feature-card">
+                <h3>🔍 Diagnostics</h3>
+                <p>Identify your learning gaps</p>
+                <a href="diagnostics.html" class="btn">Run Diagnostics</a>
+            </div>
+        </div>
+
+        <!-- Inline Chat Widget -->
+        <div class="chat-widget">
+            <h2>💬 Quick Chat</h2>
+            <p style="color: #666; margin-bottom: 1rem;">Have a quick question? Ask our AI assistant right here!</p>
+            
+            <div class="chat-widget-messages" id="chatWidgetMessages"></div>
+            
+            <div class="chat-widget-input-group">
+                <input 
+                    type="text" 
+                    class="chat-widget-input" 
+                    id="chatWidgetInput" 
+                    placeholder="Ask a question... (e.g., 'What is Ohm's law?')"
+                    autocomplete="off"
+                />
+                <button class="chat-widget-send" id="chatWidgetSend" onclick="sendWidgetMessage()">
+                    Send
+                </button>
+            </div>
+            
+            <small style="color: #999; display: block; margin-top: 0.5rem;">
+                💡 Tip: For more detailed conversations, visit the <a href="chat.html">full Chat page</a>
+            </small>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Widget Chat Session Management
+        let widgetChatSessionId = null;
+
+        /**
+         * Preprocess text to normalize LaTeX math delimiters
+         * Converts: (( ... )) -> $$ ... $$
+         */
+        function preprocessLatexDelimiters(text) {
+            text = text.replace(/\(\(\s*/g, '$$');
+            text = text.replace(/\s*\)\)/g, '$$');
+            return text;
+        }
+
+        /**
+         * Initialize chat widget on page load
+         */
+        function initializeChatWidget() {
+            const input = document.getElementById('chatWidgetInput');
+            const sendBtn = document.getElementById('chatWidgetSend');
+            
+            // Generate unique session ID for this chat widget session
+            widgetChatSessionId = 'widget_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            
+            // Allow Enter key to send message
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendWidgetMessage();
+                }
+            });
+        }
+
+        /**
+         * Send message from widget chat
+         */
+        async function sendWidgetMessage() {
+            const input = document.getElementById('chatWidgetInput');
+            const sendBtn = document.getElementById('chatWidgetSend');
+            const messagesDiv = document.getElementById('chatWidgetMessages');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Disable input
+            input.disabled = true;
+            sendBtn.disabled = true;
+            
+            // Add user message
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.className = 'chat-widget-message user';
+            userMessageDiv.textContent = message;
+            messagesDiv.appendChild(userMessageDiv);
+            
+            // Scroll to bottom
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            
+            // Clear input
+            input.value = '';
+            
+            // Show loading
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'chat-widget-message loading';
+            loadingDiv.id = 'loadingMessage';
+            loadingDiv.textContent = '⏳ Generating response...';
+            messagesDiv.appendChild(loadingDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            
+            try {
+                // Call API
+                const response = await sendChatMessage(message, widgetChatSessionId, 3, true);
+                
+                // Remove loading message
+                const loading = document.getElementById('loadingMessage');
+                if (loading) loading.remove();
+                
+                if (response && response.explanation) {
+                    // Add assistant response
+                    const assistantMessageDiv = document.createElement('div');
+                    assistantMessageDiv.className = 'chat-widget-message assistant';
+                    
+                    // Create content container for markdown rendering
+                    const contentDiv = document.createElement('div');
+                    contentDiv.innerHTML = `<strong>Assistant:</strong><br>`;
+                    
+                    const explanation = response.explanation.substring(0, 500); // Limit length
+                    const explanationHtml = document.createElement('div');
+                    // Use marked to render markdown if available, otherwise escape
+                    if (window.marked) {
+                        const processedExplanation = preprocessLatexDelimiters(explanation);
+                        explanationHtml.innerHTML = marked.parse(processedExplanation);
+                    } else {
+                        explanationHtml.textContent = explanation;
+                    }
+                    explanationHtml.style.marginTop = '0.5rem';
+                    contentDiv.appendChild(explanationHtml);
+                    
+                    // Add ellipsis if truncated
+                    if (response.explanation.length > 500) {
+                        const ellipsis = document.createElement('div');
+                        ellipsis.textContent = '...';
+                        ellipsis.style.marginTop = '0.5rem';
+                        contentDiv.appendChild(ellipsis);
+                    }
+                    
+                    assistantMessageDiv.appendChild(contentDiv);
+                    messagesDiv.appendChild(assistantMessageDiv);
+                    
+                    // Trigger MathJax rendering for LaTeX equations
+                    if (window.MathJax) {
+                        MathJax.typesetPromise([contentDiv]).catch(err => console.log('MathJax error:', err));
+                    }
+                } else if (response && response.error) {
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'chat-widget-message assistant';
+                    errorDiv.innerHTML = `<strong style="color: #d32f2f;">Error:</strong> ${escapeHtml(response.error)}`;
+                    messagesDiv.appendChild(errorDiv);
+                }
+                
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                
+            } catch (error) {
+                // Remove loading message
+                const loading = document.getElementById('loadingMessage');
+                if (loading) loading.remove();
+                
+                // Add error message
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'chat-widget-message assistant';
+                errorDiv.innerHTML = `<strong style="color: #d32f2f;">Error:</strong> Could not connect to chat service. Please try again.`;
+                messagesDiv.appendChild(errorDiv);
+                
+                console.error('Chat error:', error);
+            } finally {
+                // Re-enable input
+                input.disabled = false;
+                sendBtn.disabled = false;
+                input.focus();
+            }
+        }
+
+        /**
+         * Escape HTML to prevent XSS
+         */
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        /**
+         * Display user information on homepage
+         */
+        function displayUserInfo() {
+            const userInfo = getUserInfo();
+            
+            if (userInfo) {
+                // Update navbar greeting
+                const userWelcome = document.getElementById('userWelcome');
+                if (userWelcome) {
+                    userWelcome.textContent = `Welcome, ${userInfo.name || userInfo.email}!`;
+                }
+
+                // Display user details
+                const userDetails = document.getElementById('userDetails');
+                if (userDetails && userInfo.name) {
+                    userDetails.innerHTML = `
+                        <p><strong>Name:</strong> ${userInfo.name || 'N/A'}</p>
+                        <p><strong>Email:</strong> ${userInfo.email || 'N/A'}</p>
+                        <p><strong>Department:</strong> ${userInfo.department || 'N/A'}</p>
+                        <p><strong>Roll/ID:</strong> ${userInfo.roll_id || 'N/A'}</p>
+                    `;
+                }
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            displayUserInfo();
+            initializeChatWidget();
+        });
+    </script>
+</body>
+</html>
