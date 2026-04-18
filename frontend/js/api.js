@@ -5,9 +5,9 @@ const API_BASE_URL = (() => {
     const hostname = window.location.hostname;
     const protocol = window.location.protocol;
     
-    // In development (localhost), use port 8000
+    // In development (localhost), use port 8000; in production use $PORT from env
     if (hostname === 'localhost' || hostname === '127.0.0.1') {
-        return `${protocol}//localhost:8000`;
+        return `${protocol}//localhost:8000`;  // Dev port
     }
     
     // In production (Render, etc.), use same domain
