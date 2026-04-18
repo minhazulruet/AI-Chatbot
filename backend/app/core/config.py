@@ -26,8 +26,14 @@ class Settings(BaseSettings):
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
     
-    # CORS
-    cors_origins: List[str] = ["http://localhost:3000", "http://localhost:8000"]
+    # CORS - Read from environment variable or use defaults
+    cors_origins: List[str] = [
+        "http://localhost:3000",
+        "http://localhost:8000",
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:8000",
+        "*"  # Allow all in development/production - frontend served from same origin
+    ]
     
     # RAG Configuration
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
