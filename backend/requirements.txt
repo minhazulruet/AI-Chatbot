@@ -6,40 +6,27 @@ pydantic-settings
 
 # LLM and AI Services
 openai
-anthropic
-langchain
-langchain-openai
-langchain-community
 
 # RAG and Embeddings
 faiss-cpu
-sentence-transformers
 pypdf
-python-pptx
 rank-bm25
 tiktoken
 
 # Database and Storage
-sqlalchemy
-pydantic-settings
 supabase
 
 # Authentication and Security
 passlib
 python-multipart
-cryptography
-PyJWT
 
 # Data Processing
 pandas
 numpy
-scipy
 
 # Utilities
 python-dotenv
 requests
-aiohttp
-typing-extensions
 
 # Development and Testing
 pytest
