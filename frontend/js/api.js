@@ -1,5 +1,20 @@
 // API Service Module - Common utilities for API interactions
-const API_BASE_URL = 'http://localhost:8000';
+
+// Dynamically determine API base URL
+const API_BASE_URL = (() => {
+    const hostname = window.location.hostname;
+    const protocol = window.location.protocol;
+    
+    // In development (localhost), use port 8000
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+        return `${protocol}//localhost:8000`;
+    }
+    
+    // In production (Render, etc.), use same domain
+    return `${protocol}//${window.location.host}`;
+})();
+
+console.log('API Base URL:', API_BASE_URL);
 
 async function makeRequest(endpoint, method = 'GET', data = null, token = null) {
     const options = {

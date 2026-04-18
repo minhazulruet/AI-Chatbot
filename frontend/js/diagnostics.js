@@ -77,7 +77,7 @@ async function handleDiagnosticSubmit(e) {
     try {
         // Call diagnostic API
         const token = localStorage.getItem('authToken');
-        const response = await fetch('http://localhost:8000/api/diagnostic/analyze', {
+        const response = await fetch(`${API_BASE_URL}/api/diagnostic/analyze`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -366,7 +366,7 @@ async function submitFeedback(helpful) {
         const token = localStorage.getItem('authToken');
         const feedbackText = helpful ? 'Recommendations were helpful' : 'Recommendations were not helpful';
         
-        const response = await fetch('http://localhost:8000/api/diagnostic/feedback', {
+        const response = await fetch(`${API_BASE_URL}/api/diagnostic/feedback`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -395,7 +395,7 @@ async function submitFeedback(helpful) {
 async function loadDiagnosticHistory() {
     try {
         const token = localStorage.getItem('authToken');
-        const response = await fetch(`http://localhost:8000/api/diagnostic/history/${currentSessionId}`, {
+        const response = await fetch(`${API_BASE_URL}/api/diagnostic/history/${currentSessionId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
