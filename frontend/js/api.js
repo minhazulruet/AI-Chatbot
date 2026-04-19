@@ -5,10 +5,10 @@ const API_BASE_URL = (() => {
     const hostname = window.location.hostname;
     const protocol = window.location.protocol;
     
-    // In development (localhost), use PORT env var or same domain
+    // In development (localhost), use port from window.API_PORT or default to 10000
     if (hostname === 'localhost' || hostname === '127.0.0.1') {
-        const devPort = process.env.REACT_APP_API_PORT || '8000';
-        return `${protocol}//localhost:${devPort}`;
+        const apiPort = window.API_PORT || 10000;
+        return `${protocol}//localhost:${apiPort}`;
     }
     
     // In production (Render, etc.), use same domain

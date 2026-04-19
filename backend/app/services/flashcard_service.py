@@ -136,7 +136,7 @@ Return format:
             logger.info(f"[{self.name}] Calling LLM for {num_cards} flashcards on: {topic}")
             
             response = client.chat.completions.create(
-                model="gpt-4o-mini",
+                model="openai/gpt-4o-mini",
                 messages=[
                     {
                         "role": "user",

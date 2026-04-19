@@ -212,7 +212,7 @@ Please explain this concept to the student in a clear, engaging way. Use the pro
         
         try:
             response = self.model.chat.completions.create(
-                model="openai/gpt-4o-mini",  # Using GPT-4o-mini for speed
+                model="openai/gpt-4o-mini",  # Using GPT-4o-mini for reliable text responses
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_message}

@@ -44,13 +44,14 @@ function initializeHeaderFooter() {
         <div class="footer-content">
             <div class="footer-section">
                 <h3>About</h3>
-                <p><strong>Khandakar's Digital Assistance</strong></p>
-                <p>An intelligent chatbot powered by cutting-edge AI technology.</p>
+                <p><strong>ELEC 201 Assistant</strong></p>
+                <p>An intelligent chatbot for Fundamentals of Electric Circuits powered by cutting-edge AI technology.</p>
+                <p style="font-size: 0.9em; margin-top: 10px;">Based on: <strong>Fundamentals of Electric Circuits</strong> by Alexander and Sadiku (5th Edition)</p>
             </div>
             <div class="footer-section">
                 <h3>Developer</h3>
                 <p>Developed and maintained by<br>
-                <strong><a href="https://scholar.google.com/citations?user=VC8FmyEAAAAJ&hl=en" target="_blank">Dr. Amith Khandakar</a></strong></p>
+                <strong><a href="https://scholar.google.com/citations?user=VC8FmyEAAAAJ&hl=en" target="_blank">Dr. Amith Khandakar Md Abdullah</a></strong></p>
             </div>
             <div class="footer-section">
                 <h3>Support</h3>
