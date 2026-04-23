@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Demo - Khandakar's Digital Assistance</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/header-footer.js"></script>
+    <!-- MathJax for LaTeX rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]'], ['[', ']']]
+        },
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <div class="container">
+            <!-- Video Demo Section -->
+            <div class="video-demo-section">
+                <h1>📹 Website Demonstration</h1>
+                <p>Watch how to use all the features of Khandakar's Digital Assistance</p>
+                <div class="video-container">
+                    <iframe src="https://drive.google.com/file/d/1rF9usHjjbbPl8hY14pkvjR0X07wFVFIB/preview" width="100%" height="480" allow="autoplay"></iframe>
+                </div>
+                <div class="demo-info">
+                    <h2>Features Overview</h2>
+                    <p>This video demonstrates:</p>
+                    <ul>
+                        <li><strong>Chat Assistant</strong> - Get instant answers to your questions</li>
+                        <li><strong>Quiz System</strong> - Test your knowledge interactively</li>
+                        <li><strong>Flashcards</strong> - Learn with spaced repetition</li>
+                        <li><strong>Math Solver</strong> - Upload images and get solutions</li>
+                        <li><strong>Diagnostics</strong> - Identify your learning gaps</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
